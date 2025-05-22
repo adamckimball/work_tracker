@@ -22,6 +22,8 @@ gem "jbuilder"
 
 gem "devise", "~> 4.9" # Authentication solution for Rails
 
+gem "tailwindcss-rails" # CSS framework for rapid UI development
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
@@ -51,6 +53,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "erb_lint", require: false
 end
 
 group :development do
