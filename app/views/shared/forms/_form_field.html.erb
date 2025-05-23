@@ -1,0 +1,9 @@
+<div class="mb-4">
+  <%= f.label field, class: "block text-sm font-medium text-gray-200 mb-1" %>
+  <%= yield %>
+  <% if resource.errors[field].present? %>
+    <div class="text-red-400 text-xs mt-1">
+      <%= resource.errors[field].join(", ") %>
+    </div>
+  <% end %>
+</div>
