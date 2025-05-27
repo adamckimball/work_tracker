@@ -1,0 +1,13 @@
+<%= turbo_stream.prepend("log_entries_list") do %>
+  <li class="bg-gray-900 rounded p-4">
+    <div class="text-gray-100 font-semibold"><%= @log_entry.entry_date.strftime("%b %d, %Y") %></div>
+    <div class="text-gray-300 mt-2"><%= @log_entry.content %></div>
+  </li>
+<% end %>
+
+<%= turbo_stream.update("new_log_entry") do %>
+  <div class="bg-gray-800 rounded shadow p-6 min-h-[20rem]">
+    <h2 class="text-2xl font-semibold text-blue-300 mb-4">New Log Entry</h2>
+    <%= render "log_entries/form", log_entry: @new_log_entry %>
+  </div>
+<% end %>

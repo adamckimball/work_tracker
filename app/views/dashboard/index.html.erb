@@ -1,2 +1,32 @@
-<h1>Dashboard</h1>
-<p>Welcome to your dashboard, <%= @user.email %>!</p>
+<h1 class="text-4xl font-bold mb-8 text-blue-400 text-center">Dashboard</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-8 w-screen">
+  <!-- Log Entries Column -->
+  <div class="bg-gray-800 rounded shadow p-6 min-h-[20rem]">
+    <h2 class="text-2xl font-semibold text-blue-300 mb-4">Your Log Entries</h2>
+    <% if @log_entries.any? %>
+      <ul class="space-y-4">
+        <%= turbo_frame_tag("log_entries_list") do %>
+          <% @log_entries.each do |entry| %>
+            <li class="bg-gray-900 rounded p-4">
+              <div class="text-gray-100 font-semibold"><%= entry.entry_date.strftime("%b %d, %Y") %></div>
+              <div class="text-gray-300 mt-2"><%= entry.content %></div>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-gray-400">No log entries yet.</p>
+    <% end %>
+  </div>
+
+  <!-- Log Entry Form Column -->
+  <div class="col-span-1 md:col-span-2">
+    <%= turbo_frame_tag("new_log_entry") do %>
+      <div class="bg-gray-800 rounded shadow p-6 min-h-[20rem]">
+        <h2 class="text-2xl font-semibold text-blue-300 mb-4">New Log Entry</h2>
+        <%= render "log_entries/form", log_entry: @log_entry %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<%= form_for(log_entry, url: log_entries_path, html: { class: "bg-gray-800 p-6 rounded-lg shadow-md" }) do |f| %>
+  <%= f.hidden_field :user_id %>
+  <%= f.hidden_field :entry_date %>
+  <div class="field mb-4">
+    <%= f.label :content %>
+    <%= f.rich_textarea :content %>
+  </div>
+
+  <%= render "shared/forms/form_submit", f:, label: 'Create Entry' %>
+<% end %>
