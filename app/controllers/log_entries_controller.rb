@@ -51,7 +51,21 @@ class LogEntriesController < ApplicationController
   private
 
   def log_entry_params
-    params.require(:log_entry).permit(:entry_date, :content, :project_id, :user_id, tag_ids: [])
+    params.require(:log_entry).permit(
+      :entry_date,
+      :content,
+      :project_id,
+      :user_id,
+      { log_entry_tags_attributes: }
+    )
+  end
+
+  def log_entry_tags_attributes
+    [
+      :id,
+      :_destroy,
+      tag_attributes: [:id, :name, :_destroy]
+    ]
   end
 
   def set_log_entry
