@@ -1,10 +1,42 @@
-<%= form_for(log_entry, url: log_entries_path, html: { class: "bg-gray-800 p-6 rounded-lg shadow-md" }) do |f| %>
+<%= form_for(log_entry, url: log_entries_path, html: { class: "bg-gray-800 p-6 rounded-lg shadow-md" }, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |f| %>
   <%= f.hidden_field :user_id %>
   <%= f.hidden_field :entry_date %>
   <div class="field mb-4">
     <%= f.label :content %>
     <%= f.rich_textarea :content %>
   </div>
+
+  <template data-nested-form-target="template">
+    <%= f.fields_for :log_entry_tags, LogEntryTag.new, child_index: 'NEW_RECORD' do |let| %>
+      <div class="nested-form-wrapper" data-new-record="<%= let.object.new_record? %>">
+        <%= let.fields_for :tag, Tag.new do |t| %>
+          <div class="mb-4">
+            <%= t.label :name, "Tag", class: "block text-sm font-medium text-gray-200 mb-2" %>
+            <%= t.text_field :name, class: "w-half px-3 py-2 rounded bg-gray-900 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </template>
+
+  <%= f.fields_for :log_entry_tags do |let| %>
+    <div class="nested-form-wrapper" data-new-record="<%= let.object.new_record? %>">
+      <%= let.fields_for :tag do |t| %>
+        <div class="mb-4">
+          <%= t.label :name, "Tag", class: "block text-sm font-medium text-gray-200 mb-2" %>
+          <%= t.text_field :name, class: "w-half px-3 py-2 rounded bg-gray-900 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div data-nested-form-target="target"></div>
+
+  <button type="button" class="py-2 px-4 rounded bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow transition-colors duration-200 mb-4" data-action="nested-form#add">
+    Add Tag
+  </button>
+
+  <%= render(ErrorsComponent.new(record: log_entry)) %>
 
   <%= render "shared/forms/form_submit", f:, label: 'Create Entry' %>
 <% end %>
