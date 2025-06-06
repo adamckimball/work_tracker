@@ -1,0 +1,29 @@
+<ul
+  class="<%= ul_classes %>"
+  data-action="click->search-select-dropdown#hide"
+  data-type-to-search-target="options">
+  <% resources.eaach do |resource| %>
+    <%= link_to(
+      path_to_show(resource),
+      data: {
+        action: "mousedown->type-to-search#entityClicked enter->type-to-search#entityClicked search-select-dropdown#toggle",
+        turbo_stream: true
+      }
+    ) do %>
+      <li
+        class="<%= li_classes %>"
+        data-input-value="<%= resource.id %>"
+        data-display-value="<%= display_value(resource) %>"
+        data-type-to-search-target="searchResult"
+        data-action="<%= data_actions %>">
+        <span class="text-gray-500 text-sm leading-5 font-normal">
+          (<%= resource.id %>)
+        </span>
+        <span class="text-gray-900 text-sm leading-5 font-normal">
+          <%= display_value(resource) %>
+        </span>
+      </li>
+    <% end %>
+  <% end %>
+  <%= create_new_button %>
+</ul>

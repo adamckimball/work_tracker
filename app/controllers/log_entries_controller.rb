@@ -16,7 +16,7 @@ class LogEntriesController < ApplicationController
     if @log_entry.save
       @new_log_entry = current_user.log_entries.new(user_id: current_user.id, entry_date: Date.current)
       flash[:notice] = "Log entry created successfully."
-      respond_to(&:turbo_stream)
+      redirect_to(log_entries_path)
     else
       flash.now[:alert] = "Error creating log entry."
       @tags = Tag.all
@@ -31,7 +31,7 @@ class LogEntriesController < ApplicationController
   def update
     if @log_entry.update(log_entry_params)
       flash[:notice] = "Log entry updated successfully."
-      respond_to(&:turbo_stream)
+      redirect_to(log_entries_path)
     else
       flash.now[:alert] = "Error updating log entry."
       @tags = Tag.all
@@ -42,7 +42,7 @@ class LogEntriesController < ApplicationController
   def destroy
     if @log_entry.destroy
       flash[:notice] = "Log entry deleted successfully."
-      respond_to(&:turbo_stream)
+      redirect_to(log_entries_path)
     else
       flash[:alert] = "Error deleting log entry."
     end

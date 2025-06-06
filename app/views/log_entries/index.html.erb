@@ -1,28 +1,35 @@
-<%= link_to "Add New Entry", new_log_entry_path, class: "px-6 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow transition-colors duration-200 text-center" %>
-<% if @log_entries.any? %>
-  <table class="min-w-full bg-white border border-gray-200">
-    <thead>
-      <tr>
-        <th class="py-2 px-4 border-b">Date</th>
-        <th class="py-2 px-4 border-b">Project</th>
-        <th class="py-2 px-4 border-b">Content</th>
-        <th class="py-2 px-4 border-b">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @log_entries.each do |entry| %>
-        <tr>
-          <td class="py-2 px-4 border-b"><%= entry.entry_date %></td>
-          <td class="py-2 px-4 border-b"><%= entry.project&.name %></td>
-          <td class="py-2 px-4 border-b"><%= entry.content %></td>
-          <td class="py-2 px-4 border-b">
-            <%= link_to "Edit", edit_log_entry_path(entry), class: "text-blue-600 hover:text-blue-500" %>
-            <%= link_to "Delete", log_entry_path(entry), method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-600 hover:text-red-500" %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p class="text-gray-500">No log entries found.</p>
-<% end %>
+<div class="flex justify-center items-center w-full h-full">
+  <div class="w-full max-w-5xl bg-gray-800 rounded shadow p-8 flex flex-col" style="width: 80%; height: 95vh;">
+    <div class="flex justify-end mb-6">
+      <%= link_to "Add New Entry", new_log_entry_path, class: "px-6 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow transition-colors duration-200 text-center" %>
+    </div>
+
+    <% if @log_entries.any? %>
+      <div class="flex-1 overflow-y-auto">
+        <ul class="space-y-4">
+          <% @log_entries.each do |entry| %>
+            <li class="bg-gray-900 rounded p-4">
+              <div class="text-gray-100 font-semibold"><%= entry.entry_date.strftime("%b %d, %Y") %></div>
+              <div class="text-gray-300 mt-2"><%= entry.content %></div>
+              <% if entry.tags.any? %>
+                <div class="mt-4 flex flex-wrap gap-2">
+                  <% entry.tags.each do |tag| %>
+                    <span class="inline-block bg-blue-700 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full">
+                      <%= tag.name %>
+                    </span>
+                  <% end %>
+                </div>
+              <% end %>
+              <div class="mt-6 flex gap-4">
+                <%= link_to "Edit", edit_log_entry_path(entry), class: "px-6 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow transition-colors duration-200 text-center" %>
+                <%= button_to "Delete", log_entry_path(entry), method: :delete, class: "px-6 py-2 rounded bg-red-600 hover:bg-red-500 text-white font-semibold shadow transition-colors duration-200 text-center" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% else %>
+      <p class="text-gray-400">No log entries yet.</p>
+    <% end %>
+  </div>
+</div>

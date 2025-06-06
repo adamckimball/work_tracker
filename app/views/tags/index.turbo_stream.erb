@@ -1,0 +1,9 @@
+<%= turbo_stream.update(@target) do %>
+  <%= render(SearchOrCreateNewListComponent.new(
+    resources: @tags,
+    path_attr: 'tags_path',
+    target_frame_name: sanative_target_frame_name(params[:target_frame_name]),
+    create_new_text: params[:query],
+    create_new_path: new_tag_path(name: params[:query], target_frame_name: sanative_target_frame_name(params[:target_frame_name])),
+  )) %>
+<% end %>
