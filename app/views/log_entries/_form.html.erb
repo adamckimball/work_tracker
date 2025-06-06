@@ -1,4 +1,4 @@
-<%= form_for(log_entry, url: log_entries_path, html: { class: "bg-gray-800 p-6 rounded-lg shadow-md" }, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |f| %>
+<%= form_for(log_entry, html: { class: "bg-gray-800 p-6 rounded-lg shadow-md" }, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |f| %>
   <%= f.hidden_field :user_id %>
   <%= f.hidden_field :entry_date %>
   <div class="field mb-4">
@@ -38,5 +38,5 @@
 
   <%= render(ErrorsComponent.new(record: log_entry)) %>
 
-  <%= render "shared/forms/form_submit", f:, label: 'Create Entry' %>
+  <%= render "shared/forms/form_submit", f:, label: 'Save' %>
 <% end %>

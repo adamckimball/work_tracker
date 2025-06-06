@@ -1,0 +1,27 @@
+<div
+  class="relative"
+  data-controller="search-select-dropdown type-to-search"
+  data-type-to-search-url-value="<%= path_to_search %>"
+  data-type-to-search-param-value="query"
+  data-type-to-search-allow_create_new-value="<%= allow_create_new %>"
+  data-type-to-search-set_on_click-value="<%= set_on_click %>"
+  data-type-to-search-target_frame_name-value="<%= target_frame_name %>"
+  data-type-to-search-entity-value="<%= current_value %>"
+  data-type-to-search-dropdown_id-value="<%= dropdown_id %>">
+  <div class="relative">
+    <div
+      contenteditable="true"
+      data-action="<%= stimulus_actions %>"
+      class="<%= additional_classes %>"
+      type="text"
+      placeholder="Search"
+      data-type-to-search-target="searchInput"
+      data-search-select-dropdown-target="searchInput">
+      <%= current_value %>
+    </div>
+    <div data-search-select-dropdown-target="menu">
+      <div data-type-to-search-target="updatableDomElement" class="z-30"></div>
+    </div>
+  </div>
+  <%= turbo_frame_tag("find_or_create_new") %>
+</div>
