@@ -9,7 +9,9 @@
         <ul class="space-y-4">
           <% @log_entries.each do |entry| %>
             <li class="bg-gray-900 rounded p-4">
-              <div class="text-gray-100 font-semibold"><%= entry.entry_date.strftime("%b %d, %Y") %></div>
+              <div class="text-gray-100 font-semibold">
+                <%= (entry.entry_date - 7.hours).strftime("%b %d, %Y %l:%M %p") %>
+              </div>
               <div class="text-gray-300 mt-2"><%= entry.content %></div>
               <% if entry.tags.any? %>
                 <div class="mt-4 flex flex-wrap gap-2">

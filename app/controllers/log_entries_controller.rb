@@ -7,14 +7,13 @@ class LogEntriesController < ApplicationController
   end
 
   def new
-    @log_entry = current_user.log_entries.new(user_id: current_user.id, entry_date: Date.current)
+    @log_entry = current_user.log_entries.new(user_id: current_user.id, entry_date: Time.zone.now)
     @tags = Tag.all
   end
 
   def create
     @log_entry = current_user.log_entries.new(log_entry_params)
     if @log_entry.save
-      @new_log_entry = current_user.log_entries.new(user_id: current_user.id, entry_date: Date.current)
       flash[:notice] = "Log entry created successfully."
       redirect_to(log_entries_path)
     else
