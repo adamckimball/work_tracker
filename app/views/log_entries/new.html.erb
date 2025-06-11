@@ -1,4 +1,6 @@
-<div class="bg-gray-800 rounded shadow p-6 min-h-[20rem]">
-  <h2 class="text-2xl font-semibold text-blue-300 mb-4">New Log Entry</h2>
-  <%= render "form", log_entry: @log_entry %>
+<div class="flex flex-col items-center justify-center mt-24">
+  <div class="w-full max-w-2xl bg-gray-800 rounded shadow p-8">
+    <h2 class="text-2xl font-semibold text-blue-300 mb-6 text-center">New Log Entry</h2>
+    <%= render "form", log_entry: @log_entry %>
+  </div>
 </div>
