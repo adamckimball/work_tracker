@@ -6,9 +6,9 @@ class SearchOrCreateNewComponent < ViewComponent::Base
     target_frame_name:,
     allow_create_new: true,
     set_on_click: true,
-    current_value: '',
+    current_value: "",
     dropdown_id: nil,
-    additional_classes: '',
+    additional_classes: ""
   )
     @path_to_search = path_to_search
     @target_frame_name = target_frame_name
@@ -28,7 +28,7 @@ class SearchOrCreateNewComponent < ViewComponent::Base
               :current_value,
               :dropdown_id,
               :additional_classes
-  
+
   delegate :turbo_frame_tag, to: :helpers
 
   def stimulus_actions
@@ -43,6 +43,6 @@ class SearchOrCreateNewComponent < ViewComponent::Base
         input->type-to-search#debounceCall
         input->search-select-dropdown#showResults
         blur->type-to-search#inputBlurred]
-    ).join(' ')
+    ).join(" ")
   end
 end
