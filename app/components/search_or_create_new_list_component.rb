@@ -5,12 +5,12 @@ class SearchOrCreateNewListComponent < ViewComponent::Base
     resources:,
     target_frame_name:,
     path_attr:,
-    display_attr: 'name',
+    display_attr: "name",
     allow_create_new: true,
-    create_new_path: '',
-    create_new_text: '',
-    convertible_target: '',
-    data_actions: '',
+    create_new_path: "",
+    create_new_text: "",
+    convertible_target: "",
+    data_actions: ""
   )
     @resources = resources
     @target_frame_name = target_frame_name
@@ -47,20 +47,20 @@ class SearchOrCreateNewListComponent < ViewComponent::Base
       path_attr,
       id: resource.id,
       target_frame_name:,
-      convertible_target:,  
+      convertible_target:,
     )
   end
 
   def ul_classes
-    'absolute left-0 right-0 boarder boarder-zinc-200 rounded ring-1 ring-black ring-opacity-5 bg-white shadow-lg z-10'
+    "absolute left-0 right-0 boarder boarder-zinc-200 rounded ring-1 ring-black ring-opacity-5 bg-white shadow-lg z-10"
   end
 
   def li_classes
-    'cursor-pointer hover:bg-slate-50 p-2 text-sm'
+    "cursor-pointer hover:bg-slate-50 p-2 text-sm"
   end
 
   def create_new_li_classes
-    'droopdown-list-item boarder-b p-2 boarder-zinc-200 whitespace-nowrap text-sm leading-5 font-normal text-gray-900 hover:bg-slate-50'
+    "droopdown-list-item boarder-b p-2 boarder-zinc-200 whitespace-nowrap text-sm leading-5 font-normal text-gray-900 hover:bg-slate-50"
   end
 
   def create_new_button_text
@@ -76,8 +76,8 @@ class SearchOrCreateNewListComponent < ViewComponent::Base
     link_to(
       create_new_path,
       data: {
-        turbo_frame: 'slide_over',
-        action: 'click->search-select-dropdown#toggle',
+        turbo_frame: "slide_over",
+        action: "click->search-select-dropdown#toggle"
 
       }
     ) { create_new_li_element }
