@@ -3,10 +3,10 @@
 require "test_helper"
 
 class ErrorsComponentTest < ViewComponent::TestCase
-  def test_component_renders_something_useful
-    # assert_equal(
-    #   %(<span>Hello, components!</span>),
-    #   render_inline(ErrorsComponent.new(message: "Hello, components!")).css("span").to_html
-    # )
+  def test_renders_errors
+    user = User.new # or use users(:one) if you have a fixture
+    user.validate # triggers validation errors
+    rendered = render_inline(ErrorsComponent.new(record: user))
+    assert_includes rendered.text, "Email"
   end
 end
