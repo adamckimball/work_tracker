@@ -2,7 +2,7 @@
   class="<%= ul_classes %>"
   data-action="click->search-select-dropdown#hide"
   data-type-to-search-target="options">
-  <% resources.eaach do |resource| %>
+  <% resources.each do |resource| %>
     <%= link_to(
       path_to_show(resource),
       data: {

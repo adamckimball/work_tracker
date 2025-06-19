@@ -1,9 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
-import { debounce } from "lodash"
+import debounce from "lodash/debounce"
 import { get } from "@rails/request.js"
 
 export default class extends Controller {
-  static targets = ['updateDomElements', 'searchInput', 'options', 'searchResult'];
+  static targets = ['updatableDomElement', 'searchInput', 'options', 'searchResult'];
 
   static values = {
     allow_create_new: String,
@@ -25,8 +25,8 @@ export default class extends Controller {
   }
 
   connect() {
-    if (this.updateDomElementTarget.id === '') {
-      this.updateDomElementTarget.id = Math.random().toString(36).substring(0, 11);
+    if (this.updatableDomElementTarget.id === '') {
+      this.updatableDomElementTarget.id = Math.random().toString(36).substring(0, 11);
     }
   }
 
@@ -77,7 +77,7 @@ export default class extends Controller {
     params.append(this.paramValue, searchValue);
     params.append('allow_create_new', this.allowCreateNewValue);
     params.append('target_frame_name', this.targetFrameNameValue);
-    params.append('target', this.updateDomElementTarget.id);
+    params.append('target', this.updatableDomElementTarget.id);
     params.append('dropdown_id', this.dropdownIdValue);
 
     get(`${this.urlValue.split('?')[0]}?${params}`, {

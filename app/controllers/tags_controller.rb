@@ -1,6 +1,6 @@
 class TagsController < ApplicationController
   def index
-    @target = helpers.sanitize_target_frame_name(params[:target])
+    @target = params[:target]
     @tags = Tag.where("name ILIKE ?", "%#{params[:query]}%").limit(10).distinct
 
     respond_to(&:turbo_stream)

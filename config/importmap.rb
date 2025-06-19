@@ -10,5 +10,6 @@ pin "@rails/actiontext", to: "actiontext.esm.js"
 pin "@stimulus-components/rails-nested-form", to: "@stimulus-components--rails-nested-form.js" # @5.0.0
 pin "@stimulus-components/dropdown", to: "@stimulus-components--dropdown.js" # @3.0.0
 pin "stimulus-use" # @0.52.3
-pin "lodash" # @4.17.21
 pin "@rails/request.js", to: "@rails--request.js.js" # @0.0.12
+pin "lodash", to: "https://ga.jspm.io/npm:lodash@4.17.21/lodash.js"
+pin "lodash/debounce", to: "https://ga.jspm.io/npm:lodash@4.17.21/debounce.js"
