@@ -9,10 +9,19 @@
   <template data-nested-form-target="template">
     <%= f.fields_for :log_entry_tags, LogEntryTag.new, child_index: 'NEW_RECORD' do |let| %>
       <div class="nested-form-wrapper" data-new-record="<%= let.object.new_record? %>">
+        <%= let.hidden_field :id %>
+        <%= let.hidden_field :_destroy, value: "false", data: { destroy_field: true } %>
         <%= let.fields_for :tag, Tag.new do |t| %>
-          <div class="mb-4">
+          <div class="mb-4 flex items-center gap-2">
+            <%= t.hidden_field :id %>
             <%= t.label :name, "Tag", class: "block text-sm font-medium text-gray-200 mb-2" %>
             <%= t.text_field :name, class: "w-half px-3 py-2 rounded bg-gray-900 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+            <button type="button"
+                    class="ml-2 text-red-400 hover:text-red-600 transition"
+                    data-action="nested-form#remove"
+                    title="Remove tag">
+              ✕
+            </button>
           </div>
         <% end %>
       </div>
@@ -21,10 +30,19 @@
 
   <%= f.fields_for :log_entry_tags do |let| %>
     <div class="nested-form-wrapper" data-new-record="<%= let.object.new_record? %>">
+      <%= let.hidden_field :id %>
+      <%= let.hidden_field :_destroy, value: "false", data: { destroy_field: true } %>
       <%= let.fields_for :tag do |t| %>
-        <div class="mb-4">
+        <div class="mb-4 flex items-center gap-2">
+          <%= t.hidden_field :id %>
           <%= t.label :name, "Tag", class: "block text-sm font-medium text-gray-200 mb-2" %>
           <%= t.text_field :name, class: "w-half px-3 py-2 rounded bg-gray-900 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          <button type="button"
+                  class="ml-2 text-red-400 hover:text-red-600 transition"
+                  data-action="nested-form#remove"
+                  title="Remove tag">
+            ✕
+          </button>
         </div>
       <% end %>
     </div>
