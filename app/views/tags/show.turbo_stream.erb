@@ -1,0 +1,9 @@
+<%= turbo_stream.update("tag_search-#{params[:convertible_target]}") do %>
+  <div class="inline-flex items-center bg-blue-700 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full mr-2">
+    <span id="tag-name-span" class="mr-2"><%= @tag.name %></span>
+    <button type="button" class="focus:outline-none text-blue-200 hover:text-red-400 ml-1" title="Remove tag" data-action="nested-form#remove">✕</button>
+  </div>
+<% end %>
+
+<%= turbo_stream.set_value ".tag-name-#{params[:convertible_target]}", @tag.name %>
+<%= turbo_stream.set_value ".tag-id-#{params[:convertible_target]}", @tag.id %>

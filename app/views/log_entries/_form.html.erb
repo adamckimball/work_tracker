@@ -1,4 +1,4 @@
-<%= form_for(log_entry, html: { class: "bg-gray-800 p-6 rounded-lg shadow-md" }, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |f| %>
+<%= form_for(log_entry, html: { class: "bg-gray-800 p-6 rounded-lg shadow-md" }, data: { controller: 'nested-form tag-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |f| %>
   <%= f.hidden_field :user_id %>
   <%= f.hidden_field :entry_date %>
   <div class="field mb-4">
@@ -8,41 +8,39 @@
 
   <template data-nested-form-target="template">
     <%= f.fields_for :log_entry_tags, LogEntryTag.new, child_index: 'NEW_RECORD' do |let| %>
-      <div class="nested-form-wrapper" data-new-record="<%= let.object.new_record? %>">
+      <div class="nested-form-wrapper mb-2" data-new-record="<%= let.object.new_record? %>">
         <%= let.hidden_field :id %>
         <%= let.hidden_field :_destroy, value: "false", data: { destroy_field: true } %>
+        <%= let.hidden_field :log_entry_id, value: log_entry.id %>
+        <%= let.hidden_field :tag_id, class: "tag-id-#{let.index}" %>
         <%= let.fields_for :tag, Tag.new do |t| %>
-          <div class="mb-4 flex items-center gap-2">
-            <%= t.hidden_field :id %>
+          <%= t.hidden_field :id, class: "tag-id-#{let.index}" %>
+          <%= t.hidden_field :name, class: "tag-name-#{let.index}" %>
+          <%= turbo_frame_tag("tag_search-#{let.index}") do %>
             <%= t.label :name, "Tag", class: "block text-sm font-medium text-gray-200 mb-2" %>
-            <%= t.text_field :name, class: "w-half px-3 py-2 rounded bg-gray-900 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-            <button type="button"
-                    class="ml-2 text-red-400 hover:text-red-600 transition"
-                    data-action="nested-form#remove"
-                    title="Remove tag">
-              ✕
-            </button>
-          </div>
+            <%= render SearchOrCreateNewComponent.new(
+              current_value: t.object.name,
+              path_to_search: tags_path,
+              allow_create_new: true,
+              set_on_click: true,
+              target_frame_name: "tag_search",
+              dropdown_id: let.index,
+              additional_classes: "w-full block px-3 py-2 rounded bg-gray-900 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            ) %>
+          <% end %>
         <% end %>
       </div>
     <% end %>
   </template>
 
   <%= f.fields_for :log_entry_tags do |let| %>
-    <div class="nested-form-wrapper" data-new-record="<%= let.object.new_record? %>">
+    <div class="nested-form-wrapper mb-4" data-new-record="<%= let.object.new_record? %>">
       <%= let.hidden_field :id %>
       <%= let.hidden_field :_destroy, value: "false", data: { destroy_field: true } %>
       <%= let.fields_for :tag do |t| %>
-        <div class="mb-4 flex items-center gap-2">
-          <%= t.hidden_field :id %>
-          <%= t.label :name, "Tag", class: "block text-sm font-medium text-gray-200 mb-2" %>
-          <%= t.text_field :name, class: "w-half px-3 py-2 rounded bg-gray-900 text-gray-100 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
-          <button type="button"
-                  class="ml-2 text-red-400 hover:text-red-600 transition"
-                  data-action="nested-form#remove"
-                  title="Remove tag">
-            ✕
-          </button>
+        <div class="inline-flex items-center bg-blue-700 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full mr-2">
+          <span class="mr-2"><%= t.object.name %></span>
+          <button type="button" class="focus:outline-none text-blue-200 hover:text-red-400 ml-1" title="Remove tag" data-action="nested-form#remove">✕</button>
         </div>
       <% end %>
     </div>
