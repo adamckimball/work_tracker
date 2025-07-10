@@ -7,6 +7,7 @@ class TagsController < ApplicationController
   end
 
   def show
+    @tag = Tag.find(params[:id])
     respond_to(&:turbo_stream)
   end
 
